@@ -1,5 +1,6 @@
 package com.productcard.card.shop.service.user;
 
+import com.productcard.card.shop.dto.UserDto;
 import com.productcard.card.shop.exceptions.AlreadyExistsException;
 import com.productcard.card.shop.exceptions.ResourceNotFoundException;
 import com.productcard.card.shop.model.User;
@@ -8,6 +9,7 @@ import com.productcard.card.shop.request.CreateUserRequest;
 import com.productcard.card.shop.request.UserUpdateRequest;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,10 +19,12 @@ import java.util.Optional;
 public class UserService implements IUserService{
 
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public User getUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
     }
 
     @Override
@@ -50,5 +54,10 @@ public class UserService implements IUserService{
         userRepository.findById(userId).ifPresentOrElse(userRepository :: delete, () -> {
             throw new ResourceNotFoundException("User not found!");
         });
+    }
+
+    @Override
+    public UserDto converterUserToDto(User user){
+        return modelMapper.map(user, UserDto.class);
     }
 }

@@ -32,13 +32,91 @@
 					"response": []
 				},
 				{
+					"name": "Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/product/1/product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"product",
+								"1",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products By Brand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/product/by-brand?brand=apple",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"product",
+								"by-brand"
+							],
+							"query": [
+								{
+									"key": "brand",
+									"value": "apple"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products By Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/product/eletrocnics/all/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"product",
+								"eletrocnics",
+								"all",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Add Product",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"TV\",\r\n    \"brand\" : \"Apple\",\r\n    \"price\" : \"400\",\r\n    \"inventory\" : \"20\",\r\n    \"description\" : \"Apple smart eletronics\",\r\n    \"category\" : \"Eletronics\"\r\n}",
+							"raw": "{\r\n    \"name\" : \"TV\",\r\n    \"brand\" : \"Apple\",\r\n    \"price\" : \"400\",\r\n    \"inventory\" : \"20\",\r\n    \"description\" : \"Apple smart eletronics\",\r\n    \"category\" : \"Electronics\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -100,7 +178,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"Refrigerator\",\r\n    \"brand\" : \"LG\",\r\n    \"price\" : \"200\",\r\n    \"inventory\" : \"15\",\r\n    \"description\" : \"LG smart electronics\",\r\n    \"category\" : \"Eletronics\"\r\n}",
+							"raw": "{\r\n    \"name\" : \"Refrigerator\",\r\n    \"brand\" : \"LG\",\r\n    \"price\" : \"200\",\r\n    \"inventory\" : \"15\",\r\n    \"description\" : \"LG smart electronics\",\r\n    \"category\" : \"Electronics\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -131,7 +209,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"TV\",\r\n    \"brand\" : \"Samsung\",\r\n    \"price\" : \"150\",\r\n    \"inventory\" : \"15\",\r\n    \"description\" : \"Samsung smart TV\",\r\n    \"category\" : \"Eletronics\"\r\n}",
+							"raw": "{\r\n    \"name\" : \"TV\",\r\n    \"brand\" : \"Samsung\",\r\n    \"price\" : \"150\",\r\n    \"inventory\" : \"15\",\r\n    \"description\" : \"Samsung smart TV\",\r\n    \"category\" : \"Electronics\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -159,11 +237,256 @@
 		},
 		{
 			"name": "image",
-			"item": []
+			"item": [
+				{
+					"name": "Upload Image LG Refrigerator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/locus/Downloads/LG Refrigerator.png"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/locus/Downloads/LG Refrigerator 2.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9193/api/v1/images/upload?productId=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"images",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Image By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:9193/api/v1/images/image/download/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"images",
+								"image",
+								"download",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "category",
 			"item": []
+		},
+		{
+			"name": "cart",
+			"item": [
+				{
+					"name": "Add item to cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/cartItems/item/add?cartId&productId=1&quantity=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"cartItems",
+								"item",
+								"add"
+							],
+							"query": [
+								{
+									"key": "cartId",
+									"value": null
+								},
+								{
+									"key": "productId",
+									"value": "1"
+								},
+								{
+									"key": "quantity",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/carts/1/my-cart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"1",
+								"my-cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Total Price",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/carts/1/cart/total-price",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"1",
+								"cart",
+								"total-price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/carts/1/clear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"1",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update item quantity",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/cartItems/cart/1/item/1/update?quantity=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"cartItems",
+								"cart",
+								"1",
+								"item",
+								"1",
+								"update"
+							],
+							"query": [
+								{
+									"key": "quantity",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove cart item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/cartItems/cart/1/item/1/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"cartItems",
+								"cart",
+								"1",
+								"item",
+								"1",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

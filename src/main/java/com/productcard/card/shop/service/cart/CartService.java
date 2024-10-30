@@ -2,6 +2,7 @@ package com.productcard.card.shop.service.cart;
 
 import com.productcard.card.shop.exceptions.ResourceNotFoundException;
 import com.productcard.card.shop.model.Cart;
+import com.productcard.card.shop.model.User;
 import com.productcard.card.shop.repository.CartItemRepository;
 import com.productcard.card.shop.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
@@ -45,11 +47,13 @@ public class CartService implements ICartService{
     }
 
     @Override
-    public Long initializeNewCart(){
-        Cart newCart = new Cart();
-        Long newCartId = cartIdGenerator.incrementAndGet();
-        newCart.setId(newCartId);
-        return cartRepository.save(newCart).getId();
+    public Cart initializeNewCart(User user){
+        return Optional.ofNullable(getCartByUserId(user.getId()))
+                .orElseGet(() -> {
+                    Cart cart = new Cart();
+                    cart.setUser(user);
+                    return cartRepository.save(cart);
+                });
     }
 
     @Override
