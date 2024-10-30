@@ -1,6 +1,7 @@
 package com.productcard.card.shop.controller;
 
 import com.productcard.card.shop.dto.ProductDto;
+import com.productcard.card.shop.exceptions.AlreadyExistsException;
 import com.productcard.card.shop.exceptions.ResourceNotFoundException;
 import com.productcard.card.shop.model.Product;
 import com.productcard.card.shop.request.AddProductRequest;
@@ -13,8 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,8 +46,8 @@ public class ProductController {
         try {
             Product theProduct = productService.addProduct(product);
             return ResponseEntity.ok(new ApiResponse("Add product success!", theProduct));
-        } catch (Exception e){
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse(e.getMessage(), null));
+        } catch (AlreadyExistsException e){
+            return ResponseEntity.status(CONFLICT).body(new ApiResponse(e.getMessage(), null));
         }
     }
 
