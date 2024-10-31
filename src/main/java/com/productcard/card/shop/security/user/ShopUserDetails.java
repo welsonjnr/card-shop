@@ -1,7 +1,6 @@
 package com.productcard.card.shop.security.user;
 
 import com.productcard.card.shop.model.User;
-import com.productcard.card.shop.security.service.ShopUserDetailsService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.productcard.card.shop.security.service;
+package com.productcard.card.shop.security.user;
 
 import com.productcard.card.shop.model.User;
 import com.productcard.card.shop.repository.UserRepository;
