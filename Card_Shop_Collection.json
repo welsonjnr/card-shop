@@ -172,6 +172,37 @@
 					"response": []
 				},
 				{
+					"name": "Add Product 2 Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Watch\",\r\n    \"brand\" : \"Apple\",\r\n    \"price\" : \"50\",\r\n    \"inventory\" : \"10\",\r\n    \"description\" : \"Apple smart watch\",\r\n    \"category\" : \"Gadget\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Add Product 3",
 					"request": {
 						"method": "POST",
@@ -359,6 +390,39 @@
 					"response": []
 				},
 				{
+					"name": "Add item to cart 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/cartItems/item/add?productId=1&quantity=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"cartItems",
+								"item",
+								"add"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								},
+								{
+									"key": "quantity",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Cart By Id",
 					"request": {
 						"method": "GET",
@@ -481,6 +545,134 @@
 								"item",
 								"1",
 								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/users/1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "Place Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/orders/order?userId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"order"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"user4@email.com\",\r\n    \"password\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9193/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"admin1@email.com\",\r\n    \"password\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9193/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
 							]
 						}
 					},
