@@ -13,4 +13,6 @@ public interface IUserService {
     void deleteUser(Long userId);
 
     UserDto converterUserToDto(User user);
+
+    User getAuthenticatedUser();
 }
