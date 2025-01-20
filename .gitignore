@@ -1,8 +1,19 @@
+*.class
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+# SSH Keys
+*.pem
+*.ppk
+
+### Package Files ###
+*.jar
+*.war
+*.ear
 
 ### STS ###
 .apt_generated
@@ -18,6 +29,7 @@ target/
 *.iws
 *.iml
 *.ipr
+**/.idea
 
 ### NetBeans ###
 /nbproject/private/
@@ -31,3 +43,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Virtual Machine ###
+hs_err_pid*
+/.metadata/

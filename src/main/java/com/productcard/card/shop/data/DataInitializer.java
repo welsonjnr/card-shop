@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
-
+/**
 @Transactional
 @Component
 @RequiredArgsConstructor
@@ -71,4 +71,4 @@ public class DataInitializer implements ApplicationListener<ApplicationReadyEven
                 .filter(role -> roleRepository.findByName(role).isEmpty())
                 .map(Role::new).forEach(roleRepository::save);
     }
-}
+}**/
