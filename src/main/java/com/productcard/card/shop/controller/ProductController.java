@@ -1,7 +1,9 @@
 package com.productcard.card.shop.controller;
 
 import com.productcard.card.shop.dto.ProductDto;
+import com.productcard.card.shop.dto.ProductDtoHateoas;
 import com.productcard.card.shop.exceptions.AlreadyExistsException;
+import com.productcard.card.shop.exceptions.ProductNotFoundException;
 import com.productcard.card.shop.exceptions.ResourceNotFoundException;
 import com.productcard.card.shop.model.Product;
 import com.productcard.card.shop.request.AddProductRequest;
@@ -24,9 +26,8 @@ import static org.springframework.http.HttpStatus.*;
 public class ProductController {
     private final IProductService productService;
 
-    @GetMapping(value = "/all", produces = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE,
-            "application/x-yaml"})
+    @GetMapping(value = "/all",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
     public ResponseEntity<ApiResponse> getAllProducts(){
         List<Product> products = productService.getAllProducts();
         List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
@@ -40,7 +41,19 @@ public class ProductController {
             ProductDto productDto = productService.convertToDto(product);
 
             return ResponseEntity.ok(new ApiResponse("Success", productDto));
-        } catch (ResourceNotFoundException e){
+        } catch (ResourceNotFoundException | ProductNotFoundException e){
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+
+    @GetMapping("product/{productId}/product/hateoas")
+    public ResponseEntity<ApiResponse> getProductByIdHateoas(@PathVariable Long productId){
+        try {
+            Product product = productService.getProductById(productId);
+            ProductDtoHateoas productDto = productService.convertToDtoHateoas(product);
+
+            return ResponseEntity.ok(new ApiResponse("Success", productDto));
+        } catch (ResourceNotFoundException | ProductNotFoundException e){
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
     }
