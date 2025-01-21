@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2d9d48e9-1117-4e0c-877a-22886ad85602",
+		"_postman_id": "9f64551a-ee25-49b9-8362-851dbad1e2d7",
 		"name": "Card-Shop",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "6882998"
@@ -32,6 +32,104 @@
 					"response": []
 				},
 				{
+					"name": "Get All Products Content JSON",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products XML",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"all"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products Yaml",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/x-yaml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"all"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Product By Id",
 					"request": {
 						"method": "GET",
@@ -50,6 +148,44 @@
 								"product",
 								"1",
 								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id Hateoas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/x-yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/product/1/product/hateoas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"product",
+								"1",
+								"product",
+								"hateoas"
 							]
 						}
 					},
@@ -113,7 +249,13 @@
 					"name": "Add Product",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjEsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM3NDI4MDQ4LCJleHAiOjE3Mzc0MzE2NDh9.FCrPnGNSiEGv8qP2m3_rIgN37Cge4708Aiy6lI-Deyo",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\" : \"TV\",\r\n    \"brand\" : \"Apple\",\r\n    \"price\" : \"400\",\r\n    \"inventory\" : \"20\",\r\n    \"description\" : \"Apple smart eletronics\",\r\n    \"category\" : \"Electronics\"\r\n}",
@@ -142,37 +284,6 @@
 				},
 				{
 					"name": "Add Product 2",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"Watch\",\r\n    \"brand\" : \"Apple\",\r\n    \"price\" : \"50\",\r\n    \"inventory\" : \"10\",\r\n    \"description\" : \"Apple smart watch\",\r\n    \"category\" : \"Gadget\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:9193/api/v1/products/add",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9193",
-							"path": [
-								"api",
-								"v1",
-								"products",
-								"add"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add Product 2 Copy",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -263,6 +374,39 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjEsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM3NDI3NDg4LCJleHAiOjE3Mzc0MzEwODh9.iEGqLShs7y8Dgcsjax2hY2BnYYcHL52h7Xp7ArnFc28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/product/5/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"product",
+								"5",
+								"delete"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -347,7 +491,30 @@
 		},
 		{
 			"name": "category",
-			"item": []
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/categories/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "cart",
@@ -355,8 +522,17 @@
 				{
 					"name": "Add item to cart",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM2OTA3MDA1LCJleHAiOjE3MzY5MTA2MDV9.5Kb3NnC5xV3NIRdC5RFA388VSvPO3eejf1uuPMEFDxM",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:9193/api/v1/cartItems/item/add?cartId&productId=1&quantity=3",
 							"protocol": "http",
@@ -393,7 +569,13 @@
 					"name": "Add item to cart 2",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM2OTA3MDA1LCJleHAiOjE3MzY5MTA2MDV9.5Kb3NnC5xV3NIRdC5RFA388VSvPO3eejf1uuPMEFDxM",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:9193/api/v1/cartItems/item/add?productId=1&quantity=3",
 							"protocol": "http",
@@ -426,9 +608,15 @@
 					"name": "Get Cart By Id",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM2OTA3MDA1LCJleHAiOjE3MzY5MTA2MDV9.5Kb3NnC5xV3NIRdC5RFA388VSvPO3eejf1uuPMEFDxM",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:9193/api/v1/carts/1/my-cart",
+							"raw": "http://localhost:9193/api/v1/carts/5/my-cart",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -438,7 +626,7 @@
 								"api",
 								"v1",
 								"carts",
-								"1",
+								"5",
 								"my-cart"
 							]
 						}
@@ -449,9 +637,15 @@
 					"name": "Get Cart Total Price",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM2OTA3MDA1LCJleHAiOjE3MzY5MTA2MDV9.5Kb3NnC5xV3NIRdC5RFA388VSvPO3eejf1uuPMEFDxM",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:9193/api/v1/carts/1/cart/total-price",
+							"raw": "http://localhost:9193/api/v1/carts/5/cart/total-price",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -461,7 +655,7 @@
 								"api",
 								"v1",
 								"carts",
-								"1",
+								"5",
 								"cart",
 								"total-price"
 							]
@@ -473,9 +667,15 @@
 					"name": "Clear Cart",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM2OTA3MDA1LCJleHAiOjE3MzY5MTA2MDV9.5Kb3NnC5xV3NIRdC5RFA388VSvPO3eejf1uuPMEFDxM",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:9193/api/v1/carts/1/clear",
+							"raw": "http://localhost:9193/api/v1/carts/2/clear",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -485,7 +685,7 @@
 								"api",
 								"v1",
 								"carts",
-								"1",
+								"2",
 								"clear"
 							]
 						}
@@ -561,7 +761,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:9193/api/v1/users/1/users",
+							"raw": "http://localhost:9193/api/v1/users/1/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -572,7 +772,7 @@
 								"v1",
 								"users",
 								"1",
-								"users"
+								"user"
 							]
 						}
 					},
