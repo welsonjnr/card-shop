@@ -14,7 +14,7 @@ import com.productcard.card.shop.repository.ProductRepository;
 import com.productcard.card.shop.exceptions.ProductNotFoundException;
 import com.productcard.card.shop.request.AddProductRequest;
 import com.productcard.card.shop.request.ProductUpdateRequest;
-import lombok.RequiredArgsConstructor;;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.Link;

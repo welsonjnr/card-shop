@@ -5,12 +5,14 @@ import com.productcard.card.shop.model.Product;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
-@Component
+@Configuration
 public class ModelMapperHateoas {
 
     @Bean
+    @Primary
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
