@@ -1,6 +1,7 @@
 package com.productcard.card.shop.service.product;
 
 import com.productcard.card.shop.dto.ProductDto;
+import com.productcard.card.shop.dto.ProductDtoHateoas;
 import com.productcard.card.shop.model.Product;
 import com.productcard.card.shop.request.AddProductRequest;
 import com.productcard.card.shop.request.ProductUpdateRequest;
@@ -23,4 +24,6 @@ public interface IProductService {
     List<ProductDto> getConvertedProducts(List<Product> products);
 
     ProductDto convertToDto(Product product);
+
+    ProductDtoHateoas convertToDtoHateoas(Product product);
 }

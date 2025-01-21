@@ -34,10 +34,11 @@ public class ShopConfig {
     private static final List<String> SECURED_URLS =
             List.of("/api/v1/carts/**", "/api/v1/cartItems/**");
 
+    /* I created a custom bean in the mapper package
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
-    }
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder(){

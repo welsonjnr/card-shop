@@ -1,7 +1,9 @@
 package com.productcard.card.shop.service.product;
 
+import com.productcard.card.shop.controller.ProductController;
 import com.productcard.card.shop.dto.ImageDto;
 import com.productcard.card.shop.dto.ProductDto;
+import com.productcard.card.shop.dto.ProductDtoHateoas;
 import com.productcard.card.shop.exceptions.AlreadyExistsException;
 import com.productcard.card.shop.model.Category;
 import com.productcard.card.shop.model.Image;
@@ -12,9 +14,16 @@ import com.productcard.card.shop.repository.ProductRepository;
 import com.productcard.card.shop.exceptions.ProductNotFoundException;
 import com.productcard.card.shop.request.AddProductRequest;
 import com.productcard.card.shop.request.ProductUpdateRequest;
-import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor;;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +31,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductService implements IProductService{
+
+    @Value("${api.prefix}")
+    private String apiPrefix;
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
@@ -91,8 +103,8 @@ public class ProductService implements IProductService{
 
     @Override
     public void deleteProductById(Long id) {
-        productRepository.findById(id)
-                .ifPresentOrElse(productRepository::delete, () -> {throw new ProductNotFoundException("Product Not Found!!");});
+        productRepository.findById(id).orElseThrow(() -> {throw new ProductNotFoundException("Product Not Found!!");});
+        productRepository.deleteById(id);
     }
 
     @Override
@@ -143,4 +155,41 @@ public class ProductService implements IProductService{
         productDto.setImages(imageDtos);
         return productDto;
     }
+
+    @Override
+    public ProductDtoHateoas convertToDtoHateoas(Product product){
+        ProductDtoHateoas productDto = modelMapper.map(product, ProductDtoHateoas.class);
+        List<Image> images = imageRepository.findByProductId(product.getId());
+        List<ImageDto> imageDtos = images.stream().map(image -> modelMapper.map(image, ImageDto.class)).toList();
+        productDto.setImages(imageDtos);
+
+        //Hateoas default implementation
+        //productDto.add(linkTo(methodOn(ProductController.class).getProductById(product.getId())).withSelfRel());
+
+        //I needed to do it this way because I parameterized the api prefix in application.properties
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
+
+        Link selfLink = WebMvcLinkBuilder
+                .linkTo(WebMvcLinkBuilder
+                        .methodOn(ProductController.class)
+                        .getProductById(product.getId()))
+                .withSelfRel()
+                .withType("GET")
+                .withHref(String.format("%s%s/products/product/%d/product", baseUrl, apiPrefix, product.getId()));
+
+        Link deleteLink = WebMvcLinkBuilder
+                .linkTo(WebMvcLinkBuilder.methodOn(ProductController.class).deleteProduct(product.getId()))
+                .withRel("delete")
+                .withType("DELETE")
+                .withHref(String.format("%s%s/products/product/%d/delete", baseUrl,apiPrefix, product.getId()));
+
+        Link updateLink = WebMvcLinkBuilder
+                .linkTo(WebMvcLinkBuilder.methodOn(ProductController.class).updateProduct(null, product.getId()))
+                .withRel("update")
+                .withType("PUT")
+                .withHref(String.format("%s%s/products/product/%d/update", baseUrl,apiPrefix, product.getId()));
+
+        return productDto.add(selfLink).add(deleteLink).add(updateLink);
+    }
+
 }
