@@ -1,9 +1,14 @@
 package com.productcard.card.shop.model;
 
+import com.productcard.card.shop.dto.ProductDto;
 import com.productcard.card.shop.request.AddProductRequest;
 import com.productcard.card.shop.request.ProductUpdateRequest;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MockProduct {
 
@@ -29,9 +34,37 @@ public class MockProduct {
                 new Category("Electronics")
         );
 
-        product.setId(1L);
+        product.setId(id);
 
         return product;
+    }
+
+    public static List<Product> createListProduct(int listSize){
+
+        return IntStream.rangeClosed(1, listSize)
+                .mapToObj(i -> new Product(
+                        "Product " + i,
+                        "Brand",
+                        new BigDecimal("50.00"),
+                        10 * i,
+                        "Description of Product DTO: " + i,
+                        MockCategory.createCategory()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public static ProductDto createProductDto(Long id){
+        ProductDto productDto = new ProductDto();
+        productDto.setId(id);
+        productDto.setName("Product Dto");
+        productDto.setBrand("Brand Dto");
+        productDto.setPrice(new BigDecimal("100.00"));
+        productDto.setInventory(30);
+        productDto.setDescription("Product Dto for JUnit");
+        productDto.setCategory(MockCategory.createCategory());
+        productDto.setImages(new ArrayList<>());
+
+        return productDto;
     }
 
     public static Product createProductUpdated(){
