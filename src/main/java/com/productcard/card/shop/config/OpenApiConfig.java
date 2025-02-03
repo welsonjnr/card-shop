@@ -13,12 +13,12 @@ public class OpenApiConfig {
     public OpenAPI customOpenApi(){
         return new OpenAPI()
                 .info(new Info()
-                        .title("Title Test")
+                        .title("Api of Product Cart")
                         .version("v1")
-                        .description("Teste Swagger")
-                        .termsOfService("url")
-                        .license(new License().name("Apache 2.0")
-                                .url("url.que.vai.aparecer.com")));
+                        .description("Implementation of a product cart api, using JWT, Swagger and other spring boot technologies ")
+                        .termsOfService("https://github.com/welsonjnr/card-shop")
+                        .license(new License().name("Card-Shop 1.0")
+                                .url("https://github.com/welsonjnr/card-shop")));
     }
 
 }
