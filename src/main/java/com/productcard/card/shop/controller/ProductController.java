@@ -45,6 +45,7 @@ public class ProductController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
     })
+    @CrossOrigin(origins = {"http://localhost:8080", "http://localhost:3000"})
     public ResponseEntity<ApiResponse> getAllProducts(){
         List<Product> products = productService.getAllProducts();
         List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
@@ -60,6 +61,7 @@ public class ProductController {
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @io.swagger.v3.oas.annotations.responses.ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("product/{productId}/product")
     public ResponseEntity<ApiResponse> getProductById(@PathVariable Long productId){
         try {
