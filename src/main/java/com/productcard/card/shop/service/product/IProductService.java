@@ -5,6 +5,10 @@ import com.productcard.card.shop.dto.ProductDtoHateoas;
 import com.productcard.card.shop.model.Product;
 import com.productcard.card.shop.request.AddProductRequest;
 import com.productcard.card.shop.request.ProductUpdateRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 
 import java.util.List;
 
@@ -14,6 +18,8 @@ public interface IProductService {
     void deleteProductById(Long id);
     Product updateProduct(ProductUpdateRequest request, Long productId);
     List<Product> getAllProducts();
+    Page<ProductDto> getAllProductsPageable(PageRequest pageRequest);
+    PagedModel<EntityModel<ProductDto>> getAllProductsPageableHateoas(PageRequest pageRequest);
     List<Product> getAllProductsByCategory(String category);
     List<Product> getAllProductsByBrand(String brand);
     List<Product> getProductsByCategoryAndBrand(String category, String brand);

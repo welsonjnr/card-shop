@@ -3,6 +3,7 @@ package com.productcard.card.shop.service.product;
 import com.productcard.card.shop.controller.ProductController;
 import com.productcard.card.shop.dto.ImageDto;
 import com.productcard.card.shop.dto.ProductDto;
+import com.productcard.card.shop.dto.ProductDtoAssembler;
 import com.productcard.card.shop.dto.ProductDtoHateoas;
 import com.productcard.card.shop.exceptions.AlreadyExistsException;
 import com.productcard.card.shop.model.Category;
@@ -17,7 +18,12 @@ import com.productcard.card.shop.request.ProductUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,7 +31,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +45,8 @@ public class ProductService implements IProductService{
     private final CategoryRepository categoryRepository;
     private final ImageRepository imageRepository;
     private final ModelMapper modelMapper;
+    private final ProductDtoAssembler productDtoAssembler;
+    private final PagedResourcesAssembler<ProductDto> pagedResourcesAssembler;
 
     @Override
     public Product addProduct(AddProductRequest request) {
@@ -114,6 +121,20 @@ public class ProductService implements IProductService{
     }
 
     @Override
+    public Page<ProductDto> getAllProductsPageable(PageRequest pageRequest) {
+        return productRepository.findAll(pageRequest)
+                .map(product -> convertToDto(product));
+    }
+
+    @Override
+    public PagedModel<EntityModel<ProductDto>> getAllProductsPageableHateoas(PageRequest pageRequest) {
+        Page<ProductDto> productsPage = productRepository.findAll(pageRequest)
+                .map(this::convertToDto);
+
+        return pagedResourcesAssembler.toModel(productsPage, productDtoAssembler);
+    }
+
+    @Override
     public List<Product> getAllProductsByCategory(String category) {
         return productRepository.findByCategoryName(category);
     }
@@ -171,21 +192,20 @@ public class ProductService implements IProductService{
         String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
 
         Link selfLink = WebMvcLinkBuilder
-                .linkTo(WebMvcLinkBuilder
-                        .methodOn(ProductController.class)
+                .linkTo(methodOn(ProductController.class)
                         .getProductById(product.getId()))
                 .withSelfRel()
                 .withType("GET")
                 .withHref(String.format("%s%s/products/product/%d/product", baseUrl, apiPrefix, product.getId()));
 
         Link deleteLink = WebMvcLinkBuilder
-                .linkTo(WebMvcLinkBuilder.methodOn(ProductController.class).deleteProduct(product.getId()))
+                .linkTo(methodOn(ProductController.class).deleteProduct(product.getId()))
                 .withRel("delete")
                 .withType("DELETE")
                 .withHref(String.format("%s%s/products/product/%d/delete", baseUrl,apiPrefix, product.getId()));
 
         Link updateLink = WebMvcLinkBuilder
-                .linkTo(WebMvcLinkBuilder.methodOn(ProductController.class).updateProduct(null, product.getId()))
+                .linkTo(methodOn(ProductController.class).updateProduct(null, product.getId()))
                 .withRel("update")
                 .withType("PUT")
                 .withHref(String.format("%s%s/products/product/%d/update", baseUrl,apiPrefix, product.getId()));
