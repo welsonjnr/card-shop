@@ -18,6 +18,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,6 +56,32 @@ public class ProductController {
         List<Product> products = productService.getAllProducts();
         List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
         return ResponseEntity.ok(new ApiResponse("Success", convertedProducts));
+    }
+
+    @GetMapping(value = "/all/pageable",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
+    public ResponseEntity<ApiResponse> getAllProductsPageable(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                              @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+                                                              @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+                                                              @RequestParam(value = "direction", defaultValue = "ASC" ) String direction){
+
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+
+        Page<ProductDto> products = productService.getAllProductsPageable(pageRequest);
+        return ResponseEntity.ok(new ApiResponse("Success", products));
+    }
+
+    @GetMapping(value = "/all/pageable/hateoas",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
+    public ResponseEntity<ApiResponse> getAllProductsPageableHateoas(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                              @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
+                                                              @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+                                                              @RequestParam(value = "direction", defaultValue = "ASC" ) String direction){
+
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+
+        PagedModel<EntityModel<ProductDto>> products = productService.getAllProductsPageableHateoas(pageRequest);
+        return ResponseEntity.ok(new ApiResponse("Success", products));
     }
 
     @Operation(summary = "Find a Product By Id", description = "Find a Product by Id from database",

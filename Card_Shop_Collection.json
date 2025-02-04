@@ -32,6 +32,73 @@
 					"response": []
 				},
 				{
+					"name": "Get All Products Pageable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/all/pageable?linesPerPage=1&orderBy=brand",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"all",
+								"pageable"
+							],
+							"query": [
+								{
+									"key": "linesPerPage",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "brand"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products Pageable Hateoas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/all/pageable/hateoas?linesPerPage=1&orderBy=brand",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"all",
+								"pageable",
+								"hateoas"
+							],
+							"query": [
+								{
+									"key": "linesPerPage",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "brand"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get All Products Content JSON",
 					"request": {
 						"method": "GET",
@@ -54,6 +121,55 @@
 								"v1",
 								"products",
 								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pageable Hateoas With Links To Next, Last, Self, First",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/all/pageable/hateoas?linesPerPage=1&orderBy=brand&page=1&size=1&sort=brand,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"all",
+								"pageable",
+								"hateoas"
+							],
+							"query": [
+								{
+									"key": "linesPerPage",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "brand"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "brand,asc"
+								}
 							]
 						}
 					},
@@ -192,6 +308,49 @@
 					"response": []
 				},
 				{
+					"name": "Get Product By Id Hateoas Origin Cors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/x-yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/yaml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Origin",
+								"value": "http://localhost:5000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/products/product/1/product/hateoas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"product",
+								"1",
+								"product",
+								"hateoas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get All Products By Brand",
 					"request": {
 						"method": "GET",
@@ -252,7 +411,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjEsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM3NDI4MDQ4LCJleHAiOjE3Mzc0MzE2NDh9.FCrPnGNSiEGv8qP2m3_rIgN37Cge4708Aiy6lI-Deyo",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjEsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM4NzAyMDU4LCJleHAiOjE3Mzg3MDU2NTh9._GEMHZ-fbeOmmUknTNQiGdRYMsntgOX6_wFNTpNCrOQ",
 								"type": "text"
 							}
 						],
@@ -529,7 +688,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM2OTA3MDA1LCJleHAiOjE3MzY5MTA2MDV9.5Kb3NnC5xV3NIRdC5RFA388VSvPO3eejf1uuPMEFDxM",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
@@ -572,7 +731,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM2OTA3MDA1LCJleHAiOjE3MzY5MTA2MDV9.5Kb3NnC5xV3NIRdC5RFA388VSvPO3eejf1uuPMEFDxM",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
@@ -611,12 +770,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM2OTA3MDA1LCJleHAiOjE3MzY5MTA2MDV9.5Kb3NnC5xV3NIRdC5RFA388VSvPO3eejf1uuPMEFDxM",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:9193/api/v1/carts/5/my-cart",
+							"raw": "http://localhost:9193/api/v1/carts/1/my-cart",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -626,7 +785,7 @@
 								"api",
 								"v1",
 								"carts",
-								"5",
+								"1",
 								"my-cart"
 							]
 						}
@@ -640,12 +799,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjFAZW1haWwuY29tIiwiaWQiOjYsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzM2OTA3MDA1LCJleHAiOjE3MzY5MTA2MDV9.5Kb3NnC5xV3NIRdC5RFA388VSvPO3eejf1uuPMEFDxM",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:9193/api/v1/carts/5/cart/total-price",
+							"raw": "http://localhost:9193/api/v1/carts/1/cart/total-price",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -655,7 +814,7 @@
 								"api",
 								"v1",
 								"carts",
-								"5",
+								"1",
 								"cart",
 								"total-price"
 							]
@@ -728,7 +887,13 @@
 					"name": "Remove cart item",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:9193/api/v1/cartItems/cart/1/item/1/remove",
 							"protocol": "http",
@@ -783,6 +948,37 @@
 		{
 			"name": "order",
 			"item": [
+				{
+					"name": "Update Status Order To Processing",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9193/api/v1/orders/1/order/update/processing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9193",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"1",
+								"order",
+								"update",
+								"processing"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Place Order",
 					"request": {
@@ -849,12 +1045,29 @@
 				},
 				{
 					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(responseCode.code >= 200 && responseCode.code < 299){\r",
+									"    var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"\r",
+									"    postman.setEnvironmentVariable('token', jsonData.data.token);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"admin1@email.com\",\r\n    \"password\" : \"123456\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"{{email}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
