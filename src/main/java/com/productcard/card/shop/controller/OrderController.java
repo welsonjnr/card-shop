@@ -53,4 +53,14 @@ public class OrderController {
         }
     }
 
+    @PatchMapping("/{orderId}/order/update/processing")
+    public ResponseEntity<ApiResponse> updateProcessingOrderStatus(@PathVariable Long orderId){
+        try {
+            OrderDto order = orderService.updateOrderToProcessingStatus(orderId);
+            return ResponseEntity.ok(new ApiResponse("Item Updated Status Processing with Success!", order));
+        } catch (ResourceNotFoundException e){
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Opss!", e.getMessage()));
+        }
+    }
+
 }

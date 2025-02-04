@@ -75,6 +75,16 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public OrderDto updateOrderToProcessingStatus(Long orderId) {
+        OrderDto orderUpdated = orderRepository.findById(orderId).map(order -> {
+                    order.setOrderStatus(OrderStatus.PROCESSING);
+                    orderRepository.save(order);
+                    return convertToDto(order);
+        }).orElseThrow(() -> new ResourceNotFoundException("Order not found!"));
+        return orderUpdated;
+    }
+
+    @Override
     public List<OrderDto> getUserOrders(Long userId){
         List<Order> orders = orderRepository.findByUserId(userId);
         return orders.stream().map(this::convertToDto).toList();
