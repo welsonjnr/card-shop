@@ -1,0 +1,41 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8.0.29
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: card_shop_db
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_TCP_PORT: 3308
+    ports:
+      - "3308:3308"
+    networks:
+      - shop-network
+
+  card-shop:
+    image: jackes14/card-shop
+    restart: always
+    build: ./card-shop
+    working_dir: /card-shop
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3308/card_shop_db
+      SPRING_DATASOURCE_USERNAME: docker
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "9193:9193"
+    command: mvn spring-boot:run
+    depends_on:
+      - db
+    networks:
+      - shop-network
+
+networks:
+  shop-network:
+    driver: bridge
+    
