@@ -1,6 +1,8 @@
 package com.productcard.card.shop.service.cart;
 
+import com.productcard.card.shop.dto.CartDto;
 import com.productcard.card.shop.exceptions.ResourceNotFoundException;
+import com.productcard.card.shop.mapper.CartMapper;
 import com.productcard.card.shop.model.Cart;
 import com.productcard.card.shop.model.User;
 import com.productcard.card.shop.repository.CartItemRepository;
@@ -19,6 +21,7 @@ public class CartService implements ICartService{
 
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final CartMapper cartMapper;
     private final AtomicLong cartIdGenerator = new AtomicLong(0);
 
     @Override
@@ -36,7 +39,7 @@ public class CartService implements ICartService{
     public void clearCart(Long id) {
         Cart cart = getCart(id);
         cartItemRepository.deleteAllByCartId(id);
-        cart.getItems().clear();
+        cart.clearCart();
         cartRepository.deleteById(id);
     }
 
@@ -44,6 +47,11 @@ public class CartService implements ICartService{
     public BigDecimal getTotalPrice(Long id) {
         Cart cart = getCart(id);
         return cart.getTotalAmount();
+    }
+
+    @Override
+    public CartDto toDto(Cart cart) {
+        return cartMapper.convertToCartDto(cart);
     }
 
     @Override

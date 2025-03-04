@@ -6,6 +6,7 @@ import com.productcard.card.shop.dto.ProductDto;
 import com.productcard.card.shop.dto.ProductDtoAssembler;
 import com.productcard.card.shop.dto.ProductDtoHateoas;
 import com.productcard.card.shop.exceptions.AlreadyExistsException;
+import com.productcard.card.shop.mapper.ProductMapper;
 import com.productcard.card.shop.model.Category;
 import com.productcard.card.shop.model.Image;
 import com.productcard.card.shop.model.Product;
@@ -45,6 +46,7 @@ public class ProductService implements IProductService{
     private final CategoryRepository categoryRepository;
     private final ImageRepository imageRepository;
     private final ModelMapper modelMapper;
+    private final ProductMapper productMapper;
     private final ProductDtoAssembler productDtoAssembler;
     private final PagedResourcesAssembler<ProductDto> pagedResourcesAssembler;
 
@@ -171,10 +173,7 @@ public class ProductService implements IProductService{
 
     @Override
     public ProductDto convertToDto(Product product){
-        ProductDto productDto = modelMapper.map(product, ProductDto.class);
-        List<Image> images = imageRepository.findByProductId(product.getId());
-        List<ImageDto> imageDtos = images.stream().map(image -> modelMapper.map(image, ImageDto.class)).toList();
-        productDto.setImages(imageDtos);
+        ProductDto productDto = productMapper.convertToDto(product);
         return productDto;
     }
 
